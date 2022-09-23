@@ -13,8 +13,7 @@ namespace AtCoderAutomationTool
                 string[] commands = Console.ReadLine().Split();
                 if (commands[0]=="build")
                 {
-                    Build.InstalledCheck("npm", "/c npm -v",false);
-                    Build.InstalledCheck("pip3", "/c pip3 -v", false);
+                    Build.Run();
                 }
                 else if (commands[0] == "quit") break;
                 else Console.Error.WriteLine("Not found the command :"+commands[0]);
