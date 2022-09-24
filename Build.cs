@@ -26,7 +26,18 @@ namespace AtCoderAutomationTool
             if (ConfigSet(new string[] { "/c acc config default-task-choice", "all" }) && ConfigSet(new string[] { "/c acc config default-test-dirname-format", "test" }))
             {
                 Console.WriteLine("Success");
+                Console.WriteLine();
             }
+
+            Console.ForegroundColor= ConsoleColor.Green;
+            Console.WriteLine("Template configuration settings");
+            Console.ResetColor();
+            if(ConfigSet(new string[] { "/c acc config default-template","cs" }))
+            {
+                Console.WriteLine("Success");
+                Console.WriteLine();
+            }
+
         }
 
         private static void Install()
