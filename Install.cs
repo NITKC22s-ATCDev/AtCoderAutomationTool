@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.Enumeration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace AtCoderAutomationTool
 {
@@ -14,7 +8,7 @@ namespace AtCoderAutomationTool
         public string arguments;
         private bool allowInstall;
         private string installCommand;
-        
+
         internal Install(string fileName, string arguments, bool allowInstall)
         {
             this.fileName = fileName;
@@ -22,15 +16,15 @@ namespace AtCoderAutomationTool
             this.allowInstall = allowInstall;
         }
 
-        internal Install(string fileName, string arguments, bool allowInstall,string installCommand)
+        internal Install(string fileName, string arguments, bool allowInstall, string installCommand)
         {
-            this.fileName =fileName;
-            this.arguments=arguments;
-            this.allowInstall=allowInstall;
-            this.installCommand=installCommand;
+            this.fileName = fileName;
+            this.arguments = arguments;
+            this.allowInstall = allowInstall;
+            this.installCommand = installCommand;
         }
 
-        
+
         internal bool InstalledCheck()
         {
             using (var pro = new Process())
@@ -43,11 +37,11 @@ namespace AtCoderAutomationTool
                 pro.Start();
                 pro.WaitForExit();
                 StreamReader sr = pro.StandardError;
-                string errorSentence=sr.ReadToEnd();
-                
-                if (errorSentence.Length>0)
+                string errorSentence = sr.ReadToEnd();
+
+                if (errorSentence.Length > 0)
                 {
-                    Console.WriteLine(fileName+" :error >>\n"+errorSentence);
+                    Console.WriteLine(fileName + " :error >>\n" + errorSentence);
 
                     if (allowInstall)
                     {
@@ -60,7 +54,7 @@ namespace AtCoderAutomationTool
                 }
                 else
                 {
-                    Console.WriteLine(fileName+" :OK");
+                    Console.WriteLine(fileName + " :OK");
                     return true;
                 }
             }
@@ -71,7 +65,7 @@ namespace AtCoderAutomationTool
             var psi = new ProcessStartInfo("cmd.exe", installCommand);
             psi.CreateNoWindow = false;
             psi.UseShellExecute = false;
-            Process pro=new Process();
+            Process pro = new Process();
             pro.StartInfo = psi;
             pro.Start();
             pro.WaitForExit();

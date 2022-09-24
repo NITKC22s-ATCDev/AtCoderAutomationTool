@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace AtCoderAutomationTool
 {
@@ -11,7 +6,18 @@ namespace AtCoderAutomationTool
     {
         internal static void Run()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Install");
+            Console.ResetColor();
             Install();
+
+            Console.ForegroundColor= ConsoleColor.Green;
+            Console.WriteLine("Login");
+            Console.ResetColor();
+            Console.WriteLine("acc :");
+            Login("/c acc login");
+            Console.WriteLine("oj :");
+            Login("/c oj login https://atcoder.jp/");
         }
 
         private static void Install()
@@ -27,6 +33,19 @@ namespace AtCoderAutomationTool
             Console.WriteLine();
             Install ojInstall = new Install("oj", "/c oj --version", true, "/c pip3 install online-judge-tools");
             if (!(ojInstall.InstalledCheck())) return;
+            Console.WriteLine();
+        }
+
+        private static void Login(string command)
+        {
+            var psi = new ProcessStartInfo("cmd.exe", command);
+            psi.CreateNoWindow = false;
+            psi.UseShellExecute = false;
+            Process pro = new Process();
+            pro.StartInfo = psi;
+            pro.Start();
+            pro.WaitForExit();
+            Console.WriteLine();
         }
     }
 }
