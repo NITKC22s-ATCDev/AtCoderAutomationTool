@@ -47,7 +47,7 @@ namespace AtCoderAutomationTool
                     {
                         while (true)
                         {
-                            Console.WriteLine("Do you want to install or reinstall " + this.fileName + "? (Y/n) :");
+                            Console.Write("Do you want to install or reinstall " + this.fileName + "? (Y/n) :");
                             string installYN = Console.ReadLine();
                             if (installYN.Length == 0 || installYN == "y" || installYN == "Y") return this.RunInstall();
                             else return false;
