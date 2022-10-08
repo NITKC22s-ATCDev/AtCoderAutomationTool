@@ -6,6 +6,8 @@
         {
             while (true)
             {
+                Console.ResetColor();
+                Console.CursorVisible = true;
                 Console.Write("Command :");
                 string[] commands = Console.ReadLine().Split();
                 if (commands[0] == "build")

@@ -7,4 +7,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="bin\Release\temp\**" />
+    <Compile Remove="templates\**" />
+    <EmbeddedResource Remove="bin\Release\temp\**" />
+    <EmbeddedResource Remove="templates\**" />
+    <None Remove="bin\Release\temp\**" />
+    <None Remove="templates\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+
 </Project>
