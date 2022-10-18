@@ -166,6 +166,7 @@ namespace AtCoderAutomationTool
         {
             string[] templateFilePaths=Directory.GetFiles(roamingPath+@"\AtCoderAutomationTool\templates");
             string templateFiles="";
+            Directory.CreateDirectory(roamingPath + @"\atcoder-cli-nodejs\config\cs\");
 
             for(int i=0;i<templateFilePaths.Length;i++)
             {
