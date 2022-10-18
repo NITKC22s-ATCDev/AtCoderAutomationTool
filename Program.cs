@@ -13,6 +13,7 @@
                     Build.Run();
                 }
                 else if (commands[0] == "quit") break;
+                else if (commands[0] == "") Console.Error.WriteLine("Please enter some command.");
                 else Console.Error.WriteLine("Not found the command :" + commands[0]);
                 Console.WriteLine();
             }
