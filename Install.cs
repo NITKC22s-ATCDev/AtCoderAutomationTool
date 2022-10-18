@@ -27,38 +27,39 @@ namespace AtCoderAutomationTool
 
         internal bool InstalledCheck()
         {
-            
-                string errorSentence = CommandRunner.RunReadOut(this.arguments)[1];
 
-                if (errorSentence.Length > 0)
+            string errorSentence = CommandRunner.RunReadOut(this.arguments)[1];
+
+            if (errorSentence.Length > 0)
+            {
+                Console.Error.WriteLine(fileName + " :error >>\n" + errorSentence);
+
+                if (allowInstall)
                 {
-                    Console.Error.WriteLine(fileName + " :error >>\n" + errorSentence);
-
-                    if (allowInstall)
+                    while (true)
                     {
-                        while (true)
+                        Console.Write("Do you want to install or reinstall " + this.fileName + "? [Y/n] :");
+                        string installYN = Console.ReadLine();
+                        if (installYN.Length < 1 || installYN == "y" || installYN == "Y")
                         {
-                            Console.Write("Do you want to install or reinstall " + this.fileName + "? [Y/n] :");
-                            string installYN = Console.ReadLine();
-                            if (installYN.Length<1||installYN == "y" || installYN == "Y") return this.RunInstall();
-                            else return false;
+                            CommandRunner.Run(installCommand);
+                            CustomOutput.ColorWriteLine("Please restart command window.", ConsoleColor.Red);
+                            Console.Write("Please enter eny key.");
+                            Console.ReadKey();
+                            Environment.Exit(0);
+                            return false;
                         }
+                        return false;
                     }
-                    else return false;
                 }
-                else
-                {
-                    Console.WriteLine(fileName + " :OK");
-                    return true;
-                }
-            
-        }
+                else return false;
+            }
+            else
+            {
+                Console.WriteLine(fileName + " :OK");
+                return true;
+            }
 
-        bool RunInstall()
-        {
-            CommandRunner.Run(installCommand);
-
-            return InstalledCheck();
         }
     }
 }
