@@ -32,7 +32,7 @@ namespace AtCoderAutomationTool
 
                 if (errorSentence.Length > 0)
                 {
-                    Console.WriteLine(fileName + " :error >>\n" + errorSentence);
+                    Console.Error.WriteLine(fileName + " :error >>\n" + errorSentence);
 
                     if (allowInstall)
                     {

@@ -115,7 +115,7 @@ namespace AtCoderAutomationTool
             }
             else
             {
-                Console.WriteLine("Success\n");
+                Console.WriteLine("\nSuccess\n");
                 return true;
             }
         }
@@ -221,7 +221,6 @@ namespace AtCoderAutomationTool
 
             }
             Console.CursorVisible = true;
-            Console.ResetColor();
             top = 0;
 
             Directory.CreateDirectory(roamingPath + @"\atcoder-cli-nodejs\config\cs");
