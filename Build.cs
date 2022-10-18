@@ -19,27 +19,21 @@ namespace AtCoderAutomationTool
             CustomOutput.ColorWriteLine("Check linkage between oj and acc",ConsoleColor.Green);
             if(!Linking())return;
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("A㏄ configuration settings");
-            Console.ResetColor();
+            CustomOutput.ColorWriteLine("A㏄ configuration settings", ConsoleColor.Green);
             if (ConfigSet(new string[] { "acc config default-task-choice", "all" }) && ConfigSet(new string[] { "acc config default-test-dirname-format", "test" }))
             {
                 Console.WriteLine("Success");
                 Console.WriteLine();
             }
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Template configuration settings");
-            Console.ResetColor();
+            CustomOutput.ColorWriteLine("Template configuration settings", ConsoleColor.Green);
             if (ConfigSet(new string[] { "acc config default-template", "cs" }))
             {
                 Console.WriteLine("Success");
                 Console.WriteLine();
             }
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Create templates");
-            Console.ResetColor();
+            CustomOutput.ColorWriteLine("Create templates", ConsoleColor.Green);
             Templates();
 
         }
