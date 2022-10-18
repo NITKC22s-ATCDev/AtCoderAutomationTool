@@ -115,7 +115,7 @@ namespace AtCoderAutomationTool
             }
             else
             {
-                Console.WriteLine("\nSuccess\n");
+                Console.WriteLine("Success\n");
                 return true;
             }
         }
