@@ -17,7 +17,7 @@ namespace AtCoderAutomationTool
             if(! Install())return;
 
             CustomOutput.ColorWriteLine("Check linkage between oj and acc",ConsoleColor.Green);
-            
+            if(!Linking())return;
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("A㏄ configuration settings");
@@ -44,11 +44,7 @@ namespace AtCoderAutomationTool
 
         }
 
-
-
-
-
-        private static bool Install()
+        internal static bool Install()
         {
             Install npmInstall = new Install("npm", "npm -v", false);
             if (!npmInstall.InstalledCheck()) return false;
@@ -65,9 +61,73 @@ namespace AtCoderAutomationTool
             return true;
         }
 
-        private static bool ConfigSet(string[] commands)
+        internal static bool Linking()
         {
-            StreamReader sro;
+            string outputSentence = CommandRunner.RunReadOut("acc check-oj")[0];
+
+            if (outputSentence == "online-judge-tools is not available. \n")
+            {
+                Console.WriteLine();
+                Console.Error.WriteLine("Error :online-judge-tools is not available.\n");
+
+                Console.WriteLine("Please select a workaround.\n(Select with the up key and down key. Decide with the Enter key.)\n");
+                int optionN = 0;
+                int top;
+                string[] options = { "Set acc config.", "Reinstall oj.", "Ignore.", "Suspend bilding." };
+                Console.CursorVisible = false;
+                ConsoleColor background = Console.BackgroundColor;
+                ConsoleColor forground = Console.ForegroundColor;
+                while (true)
+                {
+                    for (int i = 0; i < 4; i++) Console.WriteLine(options[i]);
+                    top = Console.CursorTop;
+
+                    Console.SetCursorPosition(0, top - 4 + optionN);
+                    Console.BackgroundColor = forground;
+                    Console.ForegroundColor = background;
+                    Console.WriteLine(options[optionN]);
+                    Console.ResetColor();
+                    ConsoleKeyInfo pushedKey = Console.ReadKey(true);
+                    if (pushedKey.Key == ConsoleKey.UpArrow && optionN > 0) optionN--;
+                    else if (pushedKey.Key == ConsoleKey.DownArrow && optionN < 3) optionN++;
+                    else if (pushedKey.Key == ConsoleKey.Enter) { Console.CursorTop = top; break; }
+                    Console.SetCursorPosition(0, top - 4);
+                }
+
+                switch (optionN)
+                {
+                    case 0:                    
+                        string[] command = { "acc config oj-path", CommandRunner.RunReadOut("where oj")[0].TrimEnd() };
+                        if (ConfigSet(command))
+                        {
+                            return(Linking());
+                        }
+                        else return false;
+                    case 1:
+                        string[] outputs;
+                        outputs = CommandRunner.RunReadOut("pip uninstall online-judge-api-client -y");
+                        outputs = CommandRunner.RunReadOut("pip uninstall online-judge-tools -y");
+                        CommandRunner.RunReadOut("pip install online-judge-tools");
+                        return(Linking());
+                    case 2:
+                        Console.WriteLine();
+                        return true;
+                    case 3:
+                        return false;
+                    default:
+                        return false;
+                }        
+
+            }
+            else
+            {
+                Console.WriteLine("Success\n");
+                return true;
+            }
+        }
+
+        internal static bool ConfigSet(string[] commands)//commands[0]:command and value name/commands[1]:value
+        {
             string outputSentence = "";
             string errorSentence = "";
             for (int i = 0; i < 2; i++)
@@ -79,8 +139,8 @@ namespace AtCoderAutomationTool
 
                 if (errorSentence.Length != 0)
                 {
-                    Console.WriteLine("error :");
-                    Console.WriteLine(errorSentence);
+                    Console.Error.WriteLine("error >>");
+                    Console.Error.WriteLine(errorSentence);
 
                     while (true)
                     {
@@ -101,7 +161,7 @@ namespace AtCoderAutomationTool
             }
             
 
-            if (commands[1] == outputSentence)
+            if (commands[1] == outputSentence.TrimEnd())
             {
                 return true;
             }
