@@ -27,17 +27,8 @@ namespace AtCoderAutomationTool
 
         internal bool InstalledCheck()
         {
-            using (var pro = new Process())
-            {
-                var psi = new ProcessStartInfo("cmd.exe", this.arguments);
-                psi.CreateNoWindow = true;
-                psi.UseShellExecute = false;
-                psi.RedirectStandardError = true;
-                pro.StartInfo = psi;
-                pro.Start();
-                pro.WaitForExit();
-                StreamReader sr = pro.StandardError;
-                string errorSentence = sr.ReadToEnd();
+            
+                string errorSentence = CommandRunner.RunReadOut(this.arguments)[1];
 
                 if (errorSentence.Length > 0)
                 {
@@ -49,7 +40,7 @@ namespace AtCoderAutomationTool
                         {
                             Console.Write("Do you want to install or reinstall " + this.fileName + "? (Y/n) :");
                             string installYN = Console.ReadLine();
-                            if (installYN.Length == 0 || installYN == "y" || installYN == "Y") return this.RunInstall();
+                            if (installYN.Length<1||installYN == "y" || installYN == "Y") return this.RunInstall();
                             else return false;
                         }
                     }
@@ -60,18 +51,12 @@ namespace AtCoderAutomationTool
                     Console.WriteLine(fileName + " :OK");
                     return true;
                 }
-            }
+            
         }
 
         bool RunInstall()
         {
-            var psi = new ProcessStartInfo("cmd.exe", installCommand);
-            psi.CreateNoWindow = false;
-            psi.UseShellExecute = false;
-            Process pro = new Process();
-            pro.StartInfo = psi;
-            pro.Start();
-            pro.WaitForExit();
+            CommandRunner.Run(installCommand);
 
             return InstalledCheck();
         }

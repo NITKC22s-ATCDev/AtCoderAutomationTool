@@ -13,15 +13,16 @@ namespace AtCoderAutomationTool
         static string roamingPath=Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         internal static void Run()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Install");
-            Console.ResetColor();
+            CustomOutput.ColorWriteLine("Install", ConsoleColor.Green);
             if(! Install())return;
+
+            CustomOutput.ColorWriteLine("Check linkage between oj and acc",ConsoleColor.Green);
+            
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("A㏄ configuration settings");
             Console.ResetColor();
-            if (ConfigSet(new string[] { "/c acc config default-task-choice", "all" }) && ConfigSet(new string[] { "/c acc config default-test-dirname-format", "test" }))
+            if (ConfigSet(new string[] { "acc config default-task-choice", "all" }) && ConfigSet(new string[] { "acc config default-test-dirname-format", "test" }))
             {
                 Console.WriteLine("Success");
                 Console.WriteLine();
@@ -30,7 +31,7 @@ namespace AtCoderAutomationTool
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Template configuration settings");
             Console.ResetColor();
-            if (ConfigSet(new string[] { "/c acc config default-template", "cs" }))
+            if (ConfigSet(new string[] { "acc config default-template", "cs" }))
             {
                 Console.WriteLine("Success");
                 Console.WriteLine();
@@ -49,16 +50,16 @@ namespace AtCoderAutomationTool
 
         private static bool Install()
         {
-            Install npmInstall = new Install("npm", "/c npm -v", false);
+            Install npmInstall = new Install("npm", "npm -v", false);
             if (!npmInstall.InstalledCheck()) return false;
             Console.WriteLine();
-            Install pip3Install = new Install("pip3", "/c pip3 --version", false);
+            Install pip3Install = new Install("pip3", "pip3 --version", false);
             if (!pip3Install.InstalledCheck()) return false;
             Console.WriteLine();
-            Install accInstall = new Install("acc", "/c acc -v", true, "/c npm install -g atcoder-cli");
+            Install accInstall = new Install("acc", "acc -v", true, "npm install -g atcoder-cli");
             if (!accInstall.InstalledCheck()) return false;
             Console.WriteLine();
-            Install ojInstall = new Install("oj", "/c oj --version", true, "/c pip3 install online-judge-tools");
+            Install ojInstall = new Install("oj", "oj --version", true, "pip3 install online-judge-tools");
             if (!ojInstall.InstalledCheck()) return false;
             Console.WriteLine();
             return true;
@@ -68,49 +69,37 @@ namespace AtCoderAutomationTool
         {
             StreamReader sro;
             string outputSentence = "";
+            string errorSentence = "";
             for (int i = 0; i < 2; i++)
             {
-                using (var pro = new Process())
+
+                string[] outputs = CommandRunner.RunReadOut(commands[0] + (i == 0 ? " " + commands[1] : ""));
+                outputSentence = outputs[0];
+                errorSentence = outputs[1];
+
+                if (errorSentence.Length != 0)
                 {
-                    var psi = new ProcessStartInfo("cmd.exe", commands[0] + (i == 0 ? " " + commands[1] : ""));
-                    psi.CreateNoWindow = true;
-                    psi.UseShellExecute = false;
-                    psi.RedirectStandardError = true;
-                    psi.RedirectStandardOutput = true;
+                    Console.WriteLine("error :");
+                    Console.WriteLine(errorSentence);
 
-                    pro.StartInfo = psi;
-                    pro.Start();
-                    pro.WaitForExit();
-
-                    StreamReader sre = pro.StandardError;
-                    sro = pro.StandardOutput;
-                    string errorSentence = sre.ReadToEnd();
-                    outputSentence = sro.ReadLine();
-
-                    if (errorSentence.Length != 0)
+                    while (true)
                     {
-                        Console.WriteLine("error :");
-                        Console.WriteLine(errorSentence);
-
-                        while (true)
+                        Console.WriteLine("Would you like to try again? (Y/n)");
+                        string retryYN = Console.ReadLine();
+                        if (retryYN.Length == 0 || retryYN == "Y" || retryYN == "y")
                         {
-
-                            Console.WriteLine("Would you like to try again? (Y/n)");
-                            string retryYN = Console.ReadLine();
-                            if (retryYN.Length == 0 || retryYN == "Y" || retryYN == "y")
+                            if (ConfigSet(commands))
                             {
-                                if (ConfigSet(commands))
-                                {
-                                    i--;
-                                    continue;
-                                }
-                                break;
+                                i--;
+                                continue;
                             }
-                            else if (retryYN == "N" || retryYN == "n") return false;
+                            break;
                         }
+                        else if (retryYN == "N" || retryYN == "n") return false;
                     }
                 }
             }
+            
 
             if (commands[1] == outputSentence)
             {
@@ -119,7 +108,7 @@ namespace AtCoderAutomationTool
             else return false;
         }
 
-        public static void Templates()
+        internal static void Templates()
         {
             string[] templateFilePaths=Directory.GetFiles(roamingPath+@"\AtCoderAutomationTool\templates");
             string templateFiles="";
@@ -160,7 +149,7 @@ namespace AtCoderAutomationTool
                 Console.WriteLine(Path.GetFileName(templateFilePaths[selectedFile]));
                 Console.ResetColor();
 
-                ConsoleKeyInfo pushedKey = Console.ReadKey();
+                ConsoleKeyInfo pushedKey = Console.ReadKey(true);
                 if(pushedKey.Key==ConsoleKey.UpArrow&&selectedFile>0)
                 {
                     selectedFile--;
@@ -187,8 +176,6 @@ namespace AtCoderAutomationTool
                 string writeContents = "{\"task\":{\"program\":[" + templateFiles + "],\"submit\":\"" + Path.GetFileName(templateFilePaths[selectedFile])+"\"}}";
                 sw.Write(writeContents);
             }
-
-
         }
     }
 }
