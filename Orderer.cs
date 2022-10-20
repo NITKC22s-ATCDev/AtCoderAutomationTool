@@ -7,7 +7,7 @@
             while (true)
             {
                 Console.Write("Command :");
-                string[] commands = Console.ReadLine().Split();
+                string[] commands = Console.ReadLine()!.Split();
                 if (commands[0] == "build")
                 {
                     Build.Run();
