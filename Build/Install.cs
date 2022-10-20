@@ -39,8 +39,8 @@ namespace AtCoderAutomationTool
                     while (true)
                     {
                         Console.Write("Do you want to install or reinstall " + this.fileName + "? [Y/n] :");
-                        string installYN = Console.ReadLine();
-                        if (installYN.Length < 1 || installYN == "y" || installYN == "Y")
+                        string installYN = Console.ReadLine()!;
+                        if (installYN.Length ==0 || installYN == "y" || installYN == "Y")
                         {
                             CommandRunner.Run(installCommand);
                             CustomOutput.ColorWriteLine("Please restart command window.", ConsoleColor.Red);

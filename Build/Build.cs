@@ -139,7 +139,7 @@ namespace AtCoderAutomationTool
                     while (true)
                     {
                         Console.WriteLine("Would you like to try again? [Y/n]");
-                        string retryYN = Console.ReadLine();
+                        string retryYN = Console.ReadLine()!;
                         if (retryYN.Length == 0 || retryYN == "Y" || retryYN == "y")
                         {
                             if (ConfigSet(commands))
