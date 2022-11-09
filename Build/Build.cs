@@ -34,7 +34,7 @@ namespace AtCoderAutomationTool
             }
 
             CustomOutput.ColorWriteLine("Create templates", ConsoleColor.Green);
-            Templates();
+            Templating();
 
         }
 
@@ -162,9 +162,16 @@ namespace AtCoderAutomationTool
             else return false;
         }
 
-        internal static void Templates()
+        internal static void Templating()
         {
             string[] templateFilePaths=Directory.GetFiles(roamingPath+@"\AtCoderAutomationTool\templates");
+            if(templateFilePaths.Length==0)
+
+            {
+                Console.WriteLine("File not found in the directory of \""+ roamingPath + @"\AtCoderAutomationTool\templates"+"\".");
+                return;
+            }
+
             string templateFiles="";
             Directory.CreateDirectory(roamingPath + @"\atcoder-cli-nodejs\config\cs\");
 
