@@ -1,12 +1,9 @@
-﻿
-
-namespace AtCoderAutomationTool
+﻿namespace AtCoderAutomationTool
 {
    class Program
    {
       public static void Main(string[] args)
       {
-         Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\AtCoderAutomationTool\\templates");
          while (true)
          {
             Console.Write("Command :");
