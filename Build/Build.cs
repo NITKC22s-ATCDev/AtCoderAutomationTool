@@ -141,7 +141,7 @@
                      }
                      break;
                   }
-                  else if (retryYN == "N" || retryYN == "n") return false;
+                  else if(retryYN == "N" || retryYN == "n") return false;
                }
             }
          }
