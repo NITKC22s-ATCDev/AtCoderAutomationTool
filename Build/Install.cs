@@ -41,13 +41,16 @@
                   if (installYN.Length == 0 || installYN == "y" || installYN == "Y")
                   {
                      CommandRunner.Run(installCommand);
-                     CustomOutput.ColorWriteLine("Please restart command window.", ConsoleColor.Red);
+                     CustomOutput.ColorWriteLine("Please restart the shell.", ConsoleColor.Red);
                      Console.Write("Please enter eny key.");
                      Console.ReadKey();
                      Environment.Exit(0);
                      return false;
                   }
-                  return false;
+                  else if(installYN=="n"||installYN=="N")
+                  {
+                     return false;
+                  }
                }
             }
             else return false;
