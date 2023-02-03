@@ -155,15 +155,30 @@
       }
 
       internal static void Templating()
-      {
-         //Create template directory if ther isn't it.
-         Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\AtCoderAutomationTool\\templates");
-         string[] templateFilePaths = Directory.GetFiles(roamingPath + @"\AtCoderAutomationTool\templates");
-         if (templateFilePaths.Length == 0)
-
+      { 
+         string[] templateFilePaths;
+         while (true)
          {
-            Console.WriteLine("File not found in the directory of \"" + roamingPath + @"\AtCoderAutomationTool\templates" + "\".");
-            return;
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\AtCoderAutomationTool\\templates");
+            templateFilePaths = Directory.GetFiles(roamingPath + @"\AtCoderAutomationTool\templates");
+            if (templateFilePaths.Length == 0)
+            {
+               Console.WriteLine("File not found in the directory of \"" + roamingPath + @"\AtCoderAutomationTool\templates" + "\".");
+               Console.WriteLine("Reload :Spase\tContinue :Enter");
+               while (true)
+               {
+                  var enterdKey = Console.ReadKey(true).Key;
+                  if (enterdKey == ConsoleKey.Enter)
+                  {
+                     return;
+                  }
+                  else if (enterdKey == ConsoleKey.Spacebar)
+                  {
+                     break;
+                  }
+               }
+            }
+            else break;
          }
 
          string templateFiles = "";
@@ -182,6 +197,7 @@
          }
 
          Console.WriteLine("Please select the file you wish to submit \n(Select with the up key and down key. Decide with the Enter key.)\n");
+         
 
          int selectedFile = 0;
          int top;
