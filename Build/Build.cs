@@ -163,7 +163,7 @@
             templateFilePaths = Directory.GetFiles(roamingPath + @"\AtCoderAutomationTool\templates");
             if (templateFilePaths.Length == 0)
             {
-               Console.WriteLine("File not found in the directory of \"" + roamingPath + @"\AtCoderAutomationTool\templates" + "\".");
+               Console.WriteLine("Any files not found in the directory of \"" + roamingPath + @"\AtCoderAutomationTool\templates" + "\".");
                Console.WriteLine("Reload :Spase\tContinue :Enter");
                while (true)
                {
@@ -180,6 +180,7 @@
             }
             else break;
          }
+         Console.WriteLine();
 
          string templateFiles = "";
          Directory.CreateDirectory(roamingPath + @"\atcoder-cli-nodejs\config\cs\");
