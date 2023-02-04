@@ -37,7 +37,7 @@
                   }
                }
                else if (commands[1] == "") Console.Error.WriteLine("Please enter some option.");
-               else Console.WriteLine("The option not found :" + commands[1]);
+               else Console.Error.WriteLine("The option not found :" + commands[1]);
             }
             else if (commands[0] == "quit") break;
             else if (commands[0] == "") Console.Error.WriteLine("Please enter some command.");
