@@ -1,0 +1,96 @@
+﻿{
+  "command": [
+    {
+      "command": "build",
+      "description": "Build environment",
+      "usage": "build [<option>]",
+      "options": [
+        {
+            "command":"help",
+            "description": "Show help",
+            "usage":"build help",
+            "options":[]
+        }
+      ]
+    },
+    {
+      "command": "login",
+      "description": "Login some tools with AtCoder",
+      "usage": "login <options>",
+      "options": [
+        {
+          "command": "acc",
+          "description": "Login to atcoder-cli with AtCoder",
+          "usage": "login acc [<options>]",
+          "options": [
+            {
+                "command":"help",
+                "description": "Show help",
+                "usage":"login acc help",
+                "options":[]
+            }
+          ]
+        },
+        {
+          "command": "oj",
+          "description": "Login to online-judge-tools with AtCoder",
+          "usage": "login oj [<options>]",
+          "options": [
+            {
+                "command":"help",
+                "description": "Show help",
+                "usage":"login oj help",
+                "options":[]
+            }
+          ]
+        },
+        {
+            "command":"help",
+            "description": "Show help",
+            "usage":"login help",
+            "options":[]
+        }
+
+      ]
+    },
+    {
+      "command": "logout",
+      "description": "Logout some tools with AtCoder",
+      "usage": "logout <options>",
+      "options":[
+        {
+            "command":"acc",
+            "description": "Logout to atcoder-cli with AtCoder",
+            "usage": "logout acc [<options>]",
+            "options":[
+            {
+                "command":"help",
+                "description": "Show help",
+                "usage":"logout acc help",
+                "options":[]
+            }
+          ]
+        },
+        {
+            "command":"oj",
+            "description":"Logout to online-judge-tools with AtCoder",
+            "usage":"logout oj [<options>]",
+            "options":[
+            {
+                "command":"help",
+                "description": "Show help",
+                "usage":"logout oj help",
+                "options":[]
+            }
+          ]
+        },
+        {
+            "command":"help",
+            "description": "Show help",
+            "usage":"logout help",
+            "options":[]
+        }
+      ]
+    }
+  ]
+}
