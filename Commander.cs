@@ -1,6 +1,6 @@
 ﻿namespace AtCoderAutomationTool
 {
-   class Program
+   class Commander
    {
       public static void Main(string[] args)
       {
