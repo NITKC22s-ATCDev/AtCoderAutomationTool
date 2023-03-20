@@ -1,5 +1,8 @@
 ﻿{
-  "command": [
+  "command": "",
+  "description": "",
+  "usage": "",
+  "options": [
     {
       "command": "build",
       "description": "Build environment",
